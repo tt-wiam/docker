@@ -60,3 +60,19 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
+
+  open-api:
+    container_name: app_open_api
+    image: swaggerapi/swagger-ui:latest
+    restart: unless-stopped
+    environment:
+      - SWAGGER_JSON=/mnt/openapi.json
+    volumes:
+      - ./openapi.json:/mnt/openapi.json
+    depends_on:
+      - php
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+

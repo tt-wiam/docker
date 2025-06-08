@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Тестовое задание WIAM",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost"
+    }
+  ],
+  "paths": {
+    "/requests": {
+      "post": {
+        "summary": "Добавить новую заявку",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "user_id",
+                  "amount",
+                  "term"
+                ],
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "description": "Идентификатор пользователя, подающего заявку"
+                  },
+                  "amount": {
+                    "type": "integer",
+                    "description": "Сумма займа, которую пользователь запрашивает"
+                  },
+                  "term": {
+                    "type": "integer",
+                    "description": "Срок займа в днях"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "result",
+                    "id"
+                  ],
+                  "properties": {
+                    "result": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Результат выполнения операции"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "description": "Идентификатор созданной заявки"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "result"
+                  ],
+                  "properties": {
+                    "result": {
+                      "type": "boolean",
+                      "description": "Результат выполнения операции",
+                      "default": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/processor": {
+      "get": {
+        "summary": "Запустить обработчик заявок",
+        "parameters": [
+          {
+            "name": "delay",
+            "in": "query",
+            "required": false,
+            "description": "Время задержки используемое для принятия решения"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "result"
+                  ],
+                  "properties": {
+                    "result": {
+                      "type": "boolean",
+                      "default": true,
+                      "description": "Результат выполнения операции"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

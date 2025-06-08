@@ -15,6 +15,10 @@ server {
         fastcgi_param  PATH_TRANSLATED  $document_root$fsn;
     }
 
+    location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
+        try_files $uri =404;
+    }
+
     location ~ /\. {
         deny all;
         access_log off;
