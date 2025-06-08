@@ -1,0 +1,23 @@
+server {
+    listen  80;
+
+    server_name localhost;
+
+    root /var/www/web;
+
+    location / {
+        set $fsn /index.php;
+
+        fastcgi_pass   php:9000;
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fsn;
+        fastcgi_param  PATH_INFO        $fastcgi_path_info;
+        fastcgi_param  PATH_TRANSLATED  $document_root$fsn;
+    }
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+}
