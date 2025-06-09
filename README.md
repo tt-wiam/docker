@@ -16,7 +16,7 @@
 git clone https://github.com/tt-wiam/docker.git
 ```
 
-Копировать ```.env.default``` в ```.env```.
+Копировать ```default.env``` в ```.env```.
 
 ## Управление контейнерами
 
